@@ -106,6 +106,7 @@ class ResetPasswordController extends AbstractController
 
         // The token is valid; allow the user to change their password.
         $form = $this->createForm(ChangePasswordFormType::class);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -123,6 +124,8 @@ class ResetPasswordController extends AbstractController
 
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
+
+            $this->addFlash('success', "Votre mot de passe a été réinitialisé. Vous pouvez vous connecter.");
 
             return $this->redirectToRoute('visitor_authentication_login');
         }
